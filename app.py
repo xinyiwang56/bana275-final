@@ -43,6 +43,23 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# ── Demo transcripts (truncated inline) ───────────────────────────────────
+DEMO_ML = """Welcome to today's lecture on Machine Learning Fundamentals.
+Machine learning is a subset of artificial intelligence that allows systems to learn and improve from experience without being explicitly programmed.
+Supervised Learning: Models train on labeled datasets. Linear regression predicts continuous values; logistic regression performs classification using the sigmoid function.
+The bias-variance tradeoff: high bias = underfitting, high variance = overfitting. Regularization (L1 Lasso, L2 Ridge) controls overfitting.
+Unsupervised Learning: K-means clustering partitions data. PCA reduces dimensionality by projecting onto directions of maximum variance.
+Neural Networks: Layers of connected nodes. Backpropagation computes gradients. ReLU activation introduces non-linearity. Deep learning = many hidden layers.
+Evaluation: accuracy, precision, recall, F1-score, AUC-ROC. Always use train/validation/test splits and cross-validation."""
+
+DEMO_FINANCE = """Today's lecture covers Personal Finance Fundamentals.
+Budgeting: The 50/30/20 rule allocates 50% to needs, 30% to wants, 20% to savings. Zero-based budgeting assigns every dollar a job.
+Compound Interest: A = P(1+r/n)^(nt). Starting early is the single biggest factor in wealth building. Einstein called it the eighth wonder of the world.
+Investment Vehicles: 401k offers employer matching (free money). Roth IRA uses post-tax dollars for tax-free growth. Index funds track the market with low fees.
+Risk and Return: Higher risk typically means higher potential return. Diversification reduces unsystematic risk. Modern Portfolio Theory optimizes the risk-return tradeoff.
+Debt Management: Avalanche method pays high-interest debt first. Snowball method pays smallest balances first for psychological momentum.
+Emergency Fund: 3-6 months of expenses in a liquid account. This is the foundation of financial security."""
+
 # ── Session state init ─────────────────────────────────────────────────────
 for key in ["transcript", "notes", "flashcards", "qa_pairs",
             "exam_questions", "chat_history", "rag_engine", "processed"]:
@@ -416,21 +433,3 @@ with tab_exam:
                         unsafe_allow_html=True,
                     )
                 st.write("")
-
-
-# ── Demo transcripts (truncated inline) ───────────────────────────────────
-DEMO_ML = """Welcome to today's lecture on Machine Learning Fundamentals.
-Machine learning is a subset of artificial intelligence that allows systems to learn and improve from experience without being explicitly programmed.
-Supervised Learning: Models train on labeled datasets. Linear regression predicts continuous values; logistic regression performs classification using the sigmoid function.
-The bias-variance tradeoff: high bias = underfitting, high variance = overfitting. Regularization (L1 Lasso, L2 Ridge) controls overfitting.
-Unsupervised Learning: K-means clustering partitions data. PCA reduces dimensionality by projecting onto directions of maximum variance.
-Neural Networks: Layers of connected nodes. Backpropagation computes gradients. ReLU activation introduces non-linearity. Deep learning = many hidden layers.
-Evaluation: accuracy, precision, recall, F1-score, AUC-ROC. Always use train/validation/test splits and cross-validation."""
-
-DEMO_FINANCE = """Today's lecture covers Personal Finance Fundamentals.
-Budgeting: The 50/30/20 rule allocates 50% to needs, 30% to wants, 20% to savings. Zero-based budgeting assigns every dollar a job.
-Compound Interest: A = P(1+r/n)^(nt). Starting early is the single biggest factor in wealth building. Einstein called it the eighth wonder of the world.
-Investment Vehicles: 401k offers employer matching (free money). Roth IRA uses post-tax dollars for tax-free growth. Index funds track the market with low fees.
-Risk and Return: Higher risk typically means higher potential return. Diversification reduces unsystematic risk. Modern Portfolio Theory optimizes the risk-return tradeoff.
-Debt Management: Avalanche method pays high-interest debt first. Snowball method pays smallest balances first for psychological momentum.
-Emergency Fund: 3-6 months of expenses in a liquid account. This is the foundation of financial security."""
