@@ -222,17 +222,14 @@ tab_upload, tab_notes, tab_flash, tab_qa, tab_chat, tab_exam = st.tabs([
 with tab_upload:
     st.subheader("Upload Your Lecture")
 
-    # Sample buttons MUST be outside columns, rendered first
     st.markdown("**Sample Lectures**")
     col_ml, col_fin, _ = st.columns([1, 1, 4])
     with col_ml:
         if st.button("🧠 ML Fundamentals"):
-            st.session_state["demo_transcript"] = DEMO_ML
-            st.rerun()
+            st.session_state["transcript_input"] = DEMO_ML
     with col_fin:
         if st.button("📈 Finance Basics"):
-            st.session_state["demo_transcript"] = DEMO_FINANCE
-            st.rerun()
+            st.session_state["transcript_input"] = DEMO_FINANCE
 
     st.divider()
 
@@ -247,7 +244,6 @@ with tab_upload:
             "Lecture transcript",
             height=250,
             placeholder="Paste your lecture transcript here...",
-            value=st.session_state.get("demo_transcript", ""),
             key="transcript_input",
         )
     else:
@@ -269,7 +265,6 @@ with tab_upload:
         else:
             with st.spinner("Processing your lecture..."):
                 st.session_state.transcript = transcript_text
-                st.session_state.pop("demo_transcript", None)
 
                 progress = st.progress(0, "Generating notes...")
                 st.session_state.notes = generate_notes(transcript_text)
