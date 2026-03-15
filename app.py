@@ -253,8 +253,10 @@ with tab_upload:
         st.markdown("**Sample Lectures**")
         if st.button("🧠 ML Fundamentals"):
             st.session_state["demo_transcript"] = DEMO_ML
+            st.rerun()
         if st.button("📈 Finance Basics"):
             st.session_state["demo_transcript"] = DEMO_FINANCE
+            st.rerun()
 
     if "demo_transcript" in st.session_state:
         transcript_text = st.session_state["demo_transcript"]
