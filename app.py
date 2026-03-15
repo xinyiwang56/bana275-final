@@ -223,6 +223,13 @@ with tab_upload:
     st.subheader("Upload Your Lecture")
     col1, col2 = st.columns([3, 1])
 
+    with col2:
+        st.markdown("**Sample Lectures**")
+        if st.button("🧠 ML Fundamentals"):
+            st.session_state["demo_transcript"] = DEMO_ML
+        if st.button("📈 Finance Basics"):
+            st.session_state["demo_transcript"] = DEMO_FINANCE
+
     with col1:
         upload_mode = st.radio(
             "Input type",
@@ -251,24 +258,13 @@ with tab_upload:
                 else:
                     st.info("Audio/video transcription requires Whisper API (see SETUP.md).")
 
-    with col2:
-        st.markdown("**Sample Lectures**")
-        if st.button("🧠 ML Fundamentals"):
-            st.session_state["demo_transcript"] = DEMO_ML
-            st.rerun()
-        if st.button("📈 Finance Basics"):
-            st.session_state["demo_transcript"] = DEMO_FINANCE
-            st.rerun()
-
-    if "demo_transcript" in st.session_state:
-        transcript_text = st.session_state["demo_transcript"]
-
     if st.button("✨ Process Lecture", type="primary", use_container_width=True):
         if not transcript_text.strip():
             st.error("Please provide a transcript first.")
         else:
             with st.spinner("Processing your lecture..."):
                 st.session_state.transcript = transcript_text
+                st.session_state.pop("demo_transcript", None)
 
                 progress = st.progress(0, "Generating notes...")
                 st.session_state.notes = generate_notes(transcript_text)
@@ -284,8 +280,7 @@ with tab_upload:
 
             st.success("✅ Lecture processed! Switch to any tab to explore your study materials.")
             st.balloons()
-
-
+           
 # ──────────────────────────────────────────────────────────────────────────
 # TAB 2 — NOTES
 # ──────────────────────────────────────────────────────────────────────────
