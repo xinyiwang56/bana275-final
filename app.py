@@ -221,42 +221,47 @@ tab_upload, tab_notes, tab_flash, tab_qa, tab_chat, tab_exam = st.tabs([
 # ──────────────────────────────────────────────────────────────────────────
 with tab_upload:
     st.subheader("Upload Your Lecture")
-    col1, col2 = st.columns([3, 1])
 
-    with col2:
-        st.markdown("**Sample Lectures**")
+    # Sample buttons MUST be outside columns, rendered first
+    st.markdown("**Sample Lectures**")
+    col_ml, col_fin, _ = st.columns([1, 1, 4])
+    with col_ml:
         if st.button("🧠 ML Fundamentals"):
             st.session_state["demo_transcript"] = DEMO_ML
+            st.rerun()
+    with col_fin:
         if st.button("📈 Finance Basics"):
             st.session_state["demo_transcript"] = DEMO_FINANCE
+            st.rerun()
 
-    with col1:
-        upload_mode = st.radio(
-            "Input type",
-            ["Paste transcript", "Upload file"],
-            horizontal=True,
+    st.divider()
+
+    upload_mode = st.radio(
+        "Input type",
+        ["Paste transcript", "Upload file"],
+        horizontal=True,
+    )
+
+    if upload_mode == "Paste transcript":
+        transcript_text = st.text_area(
+            "Lecture transcript",
+            height=250,
+            placeholder="Paste your lecture transcript here...",
+            value=st.session_state.get("demo_transcript", ""),
+            key="transcript_input",
         )
-
-        if upload_mode == "Paste transcript":
-            transcript_text = st.text_area(
-                "Lecture transcript",
-                height=250,
-                placeholder="Paste your lecture transcript here...",
-                value=st.session_state.get("demo_transcript", ""),
-                key="transcript_input",
-            )
-        else:
-            uploaded = st.file_uploader(
-                "Upload transcript (.txt) or audio (.mp3/.mp4)",
-                type=["txt", "mp3", "mp4", "pdf"],
-            )
-            transcript_text = ""
-            if uploaded:
-                if uploaded.type == "text/plain":
-                    transcript_text = uploaded.read().decode("utf-8")
-                    st.success(f"File loaded: {uploaded.name}")
-                else:
-                    st.info("Audio/video transcription requires Whisper API (see SETUP.md).")
+    else:
+        uploaded = st.file_uploader(
+            "Upload transcript (.txt) or audio (.mp3/.mp4)",
+            type=["txt", "mp3", "mp4", "pdf"],
+        )
+        transcript_text = ""
+        if uploaded:
+            if uploaded.type == "text/plain":
+                transcript_text = uploaded.read().decode("utf-8")
+                st.success(f"File loaded: {uploaded.name}")
+            else:
+                st.info("Audio/video transcription requires Whisper API (see SETUP.md).")
 
     if st.button("✨ Process Lecture", type="primary", use_container_width=True):
         if not transcript_text.strip():
@@ -280,7 +285,6 @@ with tab_upload:
 
             st.success("✅ Lecture processed! Switch to any tab to explore your study materials.")
             st.balloons()
-           
 # ──────────────────────────────────────────────────────────────────────────
 # TAB 2 — NOTES
 # ──────────────────────────────────────────────────────────────────────────
@@ -303,7 +307,6 @@ with tab_notes:
                 pass
         with col1:
             st.markdown(st.session_state.notes)
-
 
 # ──────────────────────────────────────────────────────────────────────────
 # TAB 3 — FLASHCARDS
