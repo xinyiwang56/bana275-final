@@ -235,6 +235,8 @@ with tab_upload:
                 "Lecture transcript",
                 height=250,
                 placeholder="Paste your lecture transcript here...",
+                value=st.session_state.get("demo_transcript", ""),
+                key="transcript_input",
             )
         else:
             uploaded = st.file_uploader(
